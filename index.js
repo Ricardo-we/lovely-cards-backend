@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const CardsDb = require('./src/db-connection');
 const fs = require('fs');
 
@@ -11,7 +11,7 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'uploads/cards'),
     filename: (req, file, cb) => {
