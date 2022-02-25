@@ -28,9 +28,10 @@ app.use(require('./src/routes/card-images.js'))
 app.get('/', (req, res) => {
     res.send('Welcome to lovely cards API, try with other url')
 })
+
 app.post('/db/create-all', (req, res) => {
     const db = new CardsDb('');
-    const query = fs.readFileSync(path.join(__dirname, 'src/db-connection.js')).toString()
+    const query = fs.readFileSync(path.join(__dirname, 'src/sql/lovely-cards.sql')).toString()
     db.runQuery(query, (err, result) => {
         if(err) throw err;
         res.send('Database creation successfull')
