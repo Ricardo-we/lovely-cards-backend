@@ -25,6 +25,9 @@ app.use(require('./src/routes/users.js'))
 app.use(require('./src/routes/cards.js'))
 app.use(require('./src/routes/card-contents.js'))
 app.use(require('./src/routes/card-images.js'))
+app.get('/', (req, res) => {
+    res.send('Welcome to lovely cards API, try with other url')
+})
 app.post('/db/create-all', (req, res) => {
     const db = new CardsDb('');
     const query = fs.readFileSync(path.join(__dirname, 'src/db-connection.js')).toString()
