@@ -4,12 +4,13 @@ class CardsDb{
     constructor(tableName){
         this.tableName = tableName;
         
-        const databaseName = 'lovely-cards';
+        const databaseName = 'bjqemgrzxwvqn5t8maxt';
         this.conn = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: databaseName
+            host: 'bjqemgrzxwvqn5t8maxt-mysql.services.clever-cloud.com',
+            user: 'ujzidyhlwvcsjkf7',
+            password: '1Y9hNQKXRUfCgwO4rTyq',
+            database: databaseName,
+            multipleStatements: true
         })
 
         this.conn.connect((err) => {
