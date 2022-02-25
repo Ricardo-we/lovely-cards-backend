@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cards`
 --
 
-CREATE TABLE `cards` [IF NOT EXISTS] (
+CREATE TABLE IF NOT EXISTS `cards` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `music` text NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `cards` [IF NOT EXISTS] (
 -- Estructura de tabla para la tabla `card_content`
 --
 
-CREATE TABLE `card_content` [IF NOT EXISTS] (
+CREATE TABLE IF NOT EXISTS `card_content` (
   `id` int(11) NOT NULL,
   `card_id` int(11) NOT NULL,
   `heading` varchar(200) NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE `card_content` [IF NOT EXISTS] (
 -- Estructura de tabla para la tabla `card_images`
 --
 
-CREATE TABLE `card_images` [IF NOT EXISTS] (
+CREATE TABLE IF NOT EXISTS `card_images` (
   `id` int(11) NOT NULL,
   `card_id` int(11) NOT NULL,
   `image` text NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE `card_images` [IF NOT EXISTS] (
 -- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE `user` [IF NOT EXISTS] (
+CREATE TABLE IF NOT EXISTS `user`(
   `id` int(11) NOT NULL,
   `username` varchar(230) NOT NULL,
   `gmail` varchar(230) NOT NULL,
