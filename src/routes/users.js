@@ -10,11 +10,6 @@ function basicQueryCallBack(res, err, result){
     res.send(result)
 }
 
-// router.get('/users', (req, res) => {
-//     const query = 'SELECT * FROM user'; 
-//     db.runQuery(query, (err, result) => basicQueryCallBack(res, err, result))
-// })
-
 router.get('/users/:id', (req, res) => {
     const id = req.params.id;
     const query = `SELECT * FROM user WHERE id=${id}`;
