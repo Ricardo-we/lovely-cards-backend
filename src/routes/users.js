@@ -10,10 +10,10 @@ function basicQueryCallBack(res, err, result){
     res.send(result)
 }
 
-router.get('/users', (req, res) => {
-    const query = 'SELECT * FROM user'; 
-    db.runQuery(query, (err, result) => basicQueryCallBack(res, err, result))
-})
+// router.get('/users', (req, res) => {
+//     const query = 'SELECT * FROM user'; 
+//     db.runQuery(query, (err, result) => basicQueryCallBack(res, err, result))
+// })
 
 router.get('/users/:id', (req, res) => {
     const id = req.params.id;
@@ -24,6 +24,7 @@ router.get('/users/:id', (req, res) => {
 router.post('/check-user', (req, res) => {
     const { password, gmail, username } = req.body;
     const query = `SELECT * FROM user WHERE username='${username}' AND password='${password}' AND gmail='${gmail}'`;
+    
     db.runQuery(query, (err, result) => {
         if(err) res.send('Something failed')
         else if(result.length > 0) {
