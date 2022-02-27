@@ -15,7 +15,7 @@ router.get('/card-contents/:card_id', (req, res) => {
 
     db.runQuery(query, (err, result) => {
         if(err) res.send(err);
-        res.send(result);
+        else res.send(result);
     })
 })
 
@@ -27,7 +27,7 @@ router.post('/card-contents/:card_id', async (req, res) => {
 
     db.runQuery(query, (err, result) =>{
         if(err) res.send(err)
-        res.send({message: 'success'})
+        else res.send({message: 'success'})
     })
 })
 
@@ -39,7 +39,7 @@ router.put('/card-contents/:id', async (req, res) => {
 
     db.runQuery(query, (err, result) =>{
         if(err) res.send(err)
-        res.send({message: 'success'})
+        else res.send({message: 'success'})
     })
 })
 
@@ -49,7 +49,7 @@ router.delete('/card-contents/:id', (req, res) => {
     
     db.runQuery(query, (req, result) =>{
         if(err) res.send(err)
-        res.send({message: 'success'});
+        else res.send({message: 'success'});
     })
 })
 

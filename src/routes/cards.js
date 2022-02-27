@@ -29,7 +29,7 @@ router.get('/manage-cards/:userid', (req, res) => {
 
     db.runQuery(query, (err, result) => {
         if(err)  res.send(err);
-        res.send(result);
+        else res.send(result);
     })
 })
 
@@ -40,9 +40,10 @@ router.post('/manage-cards/:user_id', async (req, res) => {
     const uploadedFile = await cloudinary.v2.uploader.upload(music.path, {resource_type: 'raw'})
     await fse.unlink(music.path)
     const query = `INSERT INTO ${tableName} (user_id, music, card_name) VALUES ('${userId}', '${uploadedFile.url}', '${cardName}')`;
+
     db.runQuery(query, (err, result) => {
         if(err) res.send(err);
-        res.send({message:'success'});
+        else res.send({message:'success'});
     })
 })
 

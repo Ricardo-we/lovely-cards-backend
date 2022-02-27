@@ -19,7 +19,7 @@ router.get('/card-images/:card_id', (req, res) => {
 
     db.runQuery(query, (err, result) => {
         if(err) res.send(err);
-        res.send(result);
+        else res.send(result);
     })
 })
 
@@ -32,7 +32,8 @@ router.post('/card-images/:cards_id', async (req, res) => {
     const query = `INSERT INTO ${tableName} (card_id, image, image_id) VALUES ('${cardId}', '${fileUrl.url}', '${fileUrl.public_id}')`;
 
     db.runQuery(query, (err, result) =>{
-        res.send({message: 'success'})
+        if(err) res.send(err);
+        else res.send({message: 'success'})
     })
 })
 
@@ -42,8 +43,9 @@ router.delete('/card-images/:id', (req, res) => {
     cloudinary.v2.uploader.destroy(image_id)
     const query = `DELETE FROM ${tableName} WHERE id=${id}`;
 
-    db.runQuery(query, (req, result) =>{
-        res.send(result);
+    db.runQuery(query, (err, result) =>{
+        if(err) res.send(err)
+        else res.send(result);
     })
 })
 

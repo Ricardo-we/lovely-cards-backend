@@ -7,7 +7,7 @@ const db = new CardsDb('users');
 
 function basicQueryCallBack(res, err, result){
     if(err) res.send(err)
-    res.send(result)
+    else res.send(result)
 }
 
 router.get('/users/:id', (req, res) => {
@@ -35,16 +35,18 @@ router.post('/users', (req, res) => {
 
     db.runQuery('SELECT * FROM user', (err, result) => {
         if(err) res.send(err);
-        for(let row of result){
-            if(row.username === username ||row.gmail === gmail) return res.send({message: 'Already exists'})
-        }
+        else {
+            for(let row of result){
+                if(row.username === username ||row.gmail === gmail) return res.send({message: 'Already exists'})
+            }
 
-        db.runQuery(query, (err, result) => {
-            if(err) res.send(err);
-            db.runQuery('SELECT * FROM user WHERE id=(SELECT LAST_INSERT_ID());', (err, result) => {
-                res.send(JSON.stringify(result[0]))
+            db.runQuery(query, (err, result) => {
+                if(err) res.send(err);
+                else db.runQuery('SELECT * FROM user WHERE id=(SELECT LAST_INSERT_ID());', (err, result) => {
+                    res.send(JSON.stringify(result[0]))
+                })
             })
-        })
+        }
     })
 })
 
@@ -59,7 +61,6 @@ router.delete('/users/:id', (req, res) =>{
     const id = req.param('id');
     const query = `DELETE FROM user WHERE id=${id}`
     db.runQuery(query, (err, result) => basicQueryCallBack(res, err, result));
-
 })
 
 module.exports = router;
