@@ -14,7 +14,7 @@ router.get('/card-contents/:card_id', (req, res) => {
     const query = `SELECT * FROM ${tableName} WHERE card_id=${card_id}`
 
     db.runQuery(query, (err, result) => {
-        if(err) throw err;
+        if(err) res.send(err);
         res.send(result);
     })
 })
@@ -26,7 +26,7 @@ router.post('/card-contents/:card_id', async (req, res) => {
     const query = `INSERT INTO ${tableName} (card_id, heading, content) VALUES ('${cardId}', '${heading}', '${content}')`;
 
     db.runQuery(query, (err, result) =>{
-        if(err) throw err
+        if(err) res.send(err)
         res.send({message: 'success'})
     })
 })
@@ -38,7 +38,7 @@ router.put('/card-contents/:id', async (req, res) => {
     const query = `UPDATE ${tableName} SET heading='${heading}', content='${content}' WHERE id=${messageCardId}`;
 
     db.runQuery(query, (err, result) =>{
-        if(err) throw err
+        if(err) res.send(err)
         res.send({message: 'success'})
     })
 })
@@ -48,7 +48,7 @@ router.delete('/card-contents/:id', (req, res) => {
     const query = `DELETE FROM ${tableName} WHERE id=${imageId}`;
     
     db.runQuery(query, (req, result) =>{
-        if(err) throw err
+        if(err) res.send(err)
         res.send({message: 'success'});
     })
 })

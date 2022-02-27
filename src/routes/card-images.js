@@ -18,7 +18,7 @@ router.get('/card-images/:card_id', (req, res) => {
     const query = `SELECT * FROM ${tableName} WHERE card_id=${card_id}`
 
     db.runQuery(query, (err, result) => {
-        if(err) throw err;
+        if(err) res.send(err);
         res.send(result);
     })
 })

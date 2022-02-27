@@ -6,7 +6,7 @@ const router = Router();
 const db = new CardsDb('users');
 
 function basicQueryCallBack(res, err, result){
-    if(err) throw err
+    if(err) res.send(err)
     res.send(result)
 }
 
@@ -34,13 +34,13 @@ router.post('/users', (req, res) => {
     const query = `INSERT INTO user (username, password, gmail) VALUES ('${username}','${password}','${gmail}')`
 
     db.runQuery('SELECT * FROM user', (err, result) => {
-        if(err) throw err;
+        if(err) res.send(err);
         for(let row of result){
             if(row.username === username ||row.gmail === gmail) return res.send({message: 'Already exists'})
         }
 
         db.runQuery(query, (err, result) => {
-            if(err) throw err;
+            if(err) res.send(err);
             db.runQuery('SELECT * FROM user WHERE id=(SELECT LAST_INSERT_ID());', (err, result) => {
                 res.send(JSON.stringify(result[0]))
             })

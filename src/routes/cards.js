@@ -18,7 +18,7 @@ router.get('/card/:cardID', (req, res) => {
     const cardID = req.params.cardID;
     const query = `SELECT * FROM ${tableName} WHERE id=${cardID}`;
     db.runQuery(query, (err, result) => {
-        if(err) throw err; 
+        if(err)  res.send(err); 
         else res.send(result)
     })
 })
@@ -28,7 +28,7 @@ router.get('/manage-cards/:userid', (req, res) => {
     const query = `SELECT * FROM ${tableName} WHERE user_id=${userId}`
 
     db.runQuery(query, (err, result) => {
-        if(err) throw err;
+        if(err)  res.send(err);
         res.send(result);
     })
 })
@@ -41,7 +41,7 @@ router.post('/manage-cards/:user_id', async (req, res) => {
     await fse.unlink(music.path)
     const query = `INSERT INTO ${tableName} (user_id, music, card_name) VALUES ('${userId}', '${uploadedFile.url}', '${cardName}')`;
     db.runQuery(query, (err, result) => {
-        if(err) throw err;
+        if(err) res.send(err);
         res.send({message:'success'});
     })
 })
@@ -69,7 +69,7 @@ router.put('/manage-cards/:id', async (req, res) => {
     query += ` WHERE id=${id}`
 
     db.runQuery(query, (err, result) => {
-        if(err) throw err
+        if(err) res.send(err)
         res.send(result)
     })
 })
