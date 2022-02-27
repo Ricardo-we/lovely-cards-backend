@@ -14,8 +14,7 @@ class CardsDb{
         })
 
         this.conn.connect((err) => {
-            if(err) throw err;
-            console.log('Connected')
+            if(err) return err;
         })
     }
 
