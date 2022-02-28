@@ -12,14 +12,14 @@ class CardsDb{
             database: databaseName,
             multipleStatements: true
         })
+        
+        // this.conn.connect(err => {
+        //     if(err) return err;
+        // })
 
-        this.conn.connect(err => {
-            if(err) return err;
-        })
+        // this.conn.on('error', () => {
 
-        this.conn.on('error', () => {
-
-        })
+        // })
     }
 
     runQuery(query, callback){
