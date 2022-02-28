@@ -5,7 +5,7 @@ class CardsDb{
         this.tableName = tableName;
         
         const databaseName = 'bjqemgrzxwvqn5t8maxt';
-        this.conn = mysql.createConnection({
+        this.conn = mysql.createPool({
             host: 'bjqemgrzxwvqn5t8maxt-mysql.services.clever-cloud.com',
             user: 'ujzidyhlwvcsjkf7',
             password: '1Y9hNQKXRUfCgwO4rTyq',
@@ -13,8 +13,12 @@ class CardsDb{
             multipleStatements: true
         })
 
-        this.conn.connect((err) => {
+        this.conn.connect(err => {
             if(err) return err;
+        })
+
+        this.conn.on('error', () => {
+
         })
     }
 
