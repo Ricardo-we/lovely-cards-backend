@@ -8,16 +8,12 @@ const router = Router();
 const db = new CardsDb('card_images');
 const tableName = 'card_content'
 
-router.get('/card-contents/:card_id', (req, res) => {
+router.get('/card-contents/:card_id', async (req, res) => {
     try{
         const card_id = req.params.card_id;
-        console.log('card-contents', card_id)
-        const query = `SELECT * FROM ${tableName} WHERE card_id=${card_id}`
-        
-        db.runQuery(query, (err, result) => {
-            if(err) throw new Error(err.toString());
-            else res.send(result);
-        })
+        const query = `SELECT * FROM ${tableName} WHERE card_id=?`
+        const result = await db.safeQuery(query, [card_id]);
+        return res.send(result);        
     } catch(error){
         res.json({error: error.toString()})
     }
@@ -26,14 +22,12 @@ router.get('/card-contents/:card_id', (req, res) => {
 router.post('/card-contents/:card_id', async (req, res) => {
     try{
         const cardId = req.params.card_id;
-        const { heading, content } = req.body;
+        const { heading, content, card_color } = req.body;
         
-        const query = `INSERT INTO ${tableName} (card_id, heading, content) VALUES ('${cardId}', '${heading}', '${content}')`;
+        const query = `INSERT INTO ${tableName} (card_id, heading, content, card_color) VALUES (?, ?, ?, ?)`;
+        await db.safeQuery(query, [cardId, heading, content,card_color]);
         
-        db.runQuery(query, (err, result) =>{
-            if(err) throw new Error(err.toString())
-            else res.send({message: 'success'})
-        })
+        return res.send({message: "success"});       
     } catch(error){
         res.json({error: error.toString()})
     }

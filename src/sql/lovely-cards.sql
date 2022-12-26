@@ -5,7 +5,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `cards` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `music` text NOT NULL,
+  `music` text NULL,
   `card_name` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -13,14 +13,18 @@ CREATE TABLE IF NOT EXISTS `card_content` (
   `id` int(11) NOT NULL,
   `card_id` int(11) NOT NULL,
   `heading` varchar(200) NOT NULL,
-  `content` text NOT NULL
+  `content` text NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `card_images` (
   `id` int(11) NOT NULL,
   `card_id` int(11) NOT NULL,
   `image` text NOT NULL,
-  `image_id` text NOT NULL
+  `image_id` text NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `user`(
@@ -65,3 +69,10 @@ ALTER TABLE `card_content`
 ALTER TABLE `card_images`
   ADD CONSTRAINT `card_images_ibfk_1` FOREIGN KEY (`card_id`) REFERENCES `cards` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+ALTER TABLE `card_content`
+  ADD `card_color` VARCHAR(255) NOT NULL DEFAULT '#ff0000';
+ALTER TABLE card_content ADD `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE card_content ADD `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP;
+ALTER TABLE card_images ADD `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE card_images ADD `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP;
